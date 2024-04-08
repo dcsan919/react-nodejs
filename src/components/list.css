@@ -1,51 +1,52 @@
 .container-list{
-       
-       background-color: rgb(82, 87, 82);
-       border: 1px solid #ccc; /* Borde de 1px sólido con color gris claro */
-       border-radius: 20px; /* Radio de borde de 10px */
-       padding: 20px; /* Añade un relleno interno de 20px */
-       margin-top: 40px; /* Añade margen inferior de 20px */
-       width: 90%;
-       margin: 30px auto 0;
-       height: 10%;
+  background-color: rgb(82, 87, 82);
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 40px;
+  width: 90%;
+  margin: 30px auto 0;
+  height: 10%;
 }
 .small-table {
-       width: 95%; /* Puedes ajustar este valor según tus necesidades */
-       margin: 0 auto; /* Centra la tabla horizontalmente */
-       border-radius: 10px;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 .txt-list{
-       color: aliceblue;
-       margin: 40px;
-       margin-top: 10px;
-       text-align: center;
-       margin-right: 20px;
-       flex: 1;
+  color: aliceblue;
+  margin: 40px;
+  margin-top: 10px;
+  text-align: center;
+  margin-right: 20px;
+  flex: 1;
 }
 .cont-t-b {
-       display: flex;
-       justify-content: space-between; /* Esto coloca los elementos en los extremos */
-       align-items: center; /* Esto centra verticalmente los elementos */
-     }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .icon-value{
-       width: 35px;
-       height: 35px;
+  width: 35px;
+  height: 35px;
 }
 .cont-btns button:first-child {
-       margin-right: 10px;
+  margin-right: 10px;
 }
 .btn-success {
-       margin-right: 70px; /* Ajusta el espacio entre el botón y el borde derecho */
-       width: 120px;
-       height: 45px;
-     }
+  margin-right: 70px;
+  width: 120px;
+  height: 45px;
+}
 .inp-buscador{
-       display: flex;
-       align-items:center;
-       text-align:center;
-       margin-top: 20px;
-
-       width: 350px;
-       height: 60px;
-       margin-left: 70%;
+  display: flex;
+  align-items:center;
+  text-align:center;
+  margin-top: 20px;
+  width: 350px;
+  height: 60px;
+  margin-left: 70%;
+}
+.form-container{
+  
 }

@@ -5,6 +5,8 @@ const Form = ({pc, setPc, setListUpdated}) => {
        const {id} = useParams();
        const home = useNavigate();
        
+        
+       
        //Especificar campos de edicion o agregar
        useEffect(()=>{
         if(id){
@@ -80,9 +82,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
        //Actualizar un registro
       const handleUpdate = (e,id) => {
         e.preventDefault();
-        let{id_estado, id_tabla} = pc
-        id_estado = parseInt();
-        id_tabla = parseInt();
+        
                   
         const requestInit = {
           method: 'PUT',
