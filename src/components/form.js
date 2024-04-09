@@ -4,9 +4,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
        const [editMode, setEditMode] = useState(false);
        const {id} = useParams();
        const home = useNavigate();
-       
-        
-       
+    
        //Especificar campos de edicion o agregar
        useEffect(()=>{
         if(id){
@@ -81,9 +79,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
        }
        //Actualizar un registro
       const handleUpdate = (e,id) => {
-        e.preventDefault();
-        
-                  
+        e.preventDefault();   
         const requestInit = {
           method: 'PUT',
           headers: {'Content-Type':'application/json'},
@@ -109,64 +105,74 @@ const Form = ({pc, setPc, setListUpdated}) => {
         home('/');
       }
 
+      //Color de la columna
+      const [columnaDestacada, setColumnaDestacada] = useState(null);
+
        return (
-              <div className="form-container">
-                <h2>{editMode ? "Editar Computadora" : "Agregar Computadora"}</h2>
+              <div>
+                <p className="form-txt"> {editMode ? "Editar Computadora" : "Agregar Computadora"}</p>
+                <div className="form-container">
                 <form onSubmit={(e)=> editMode ? handleUpdate(e,pc.id) : handleSubmit(e)} className="row">
-                  <div className="col-md-6">
-                    <div className="mb-3">
-                      <label htmlFor="nombre" className="form-label">Nombre</label>
+                <div className={`col-md-6 columna columna-izquierda ${columnaDestacada === 'izquierda' ? 'destacada' : ''}`}
+                    onMouseEnter={() => setColumnaDestacada('izquierda')}
+                    onMouseLeave={() => setColumnaDestacada(null)}
+                    >
+                    <div className="mbs-3">
+                      <label htmlFor="nombre" className="form-labels">Nombre *</label>
                       <input
                         name="nombre"
                         onChange={handleChange}
                         type="text"
                         id="nombre"
                         value={pc.nombre || ""}
-                        className="form-control"
+                        className="form-controls"
                       />
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="modelo" className="form-label">Modelo</label>
+                    <div className="mbs-3">
+                      <label htmlFor="modelo" className="form-labels">Modelo *</label>
                       <input
                         name="modelo"
                         onChange={handleChange}
                         type="text"
                         id="modelo"
                         value={pc.modelo || ""}
-                        className="form-control"
+                        className="form-controls"
                       />
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="no_serie" className="form-label">No. Serie</label>
+                    <div className="mbs-3">
+                      <label htmlFor="no_serie" className="form-labels">No. Serie *</label>
                       <input
                         name="no_serie"
                         onChange={handleChange}
                         type="text"
                         id="no_serie"
                         value={pc.no_serie || ""}
-                        className="form-control"
+                        className="form-controls"
                       />
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="observacion" className="form-label">Observacion</label>
+                    <div className="mbs-3">
+                      <label htmlFor="observacion" className="form-labels">Observacion *</label>
                       <input
                         name="observacion"
                         onChange={handleChange}
                         type="text"
                         id="observacion"
                         value={pc.observacion || ""}
-                        className="form-control"
+                        className="form-controls"
                       />
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="mb-3">
-                      <label htmlFor="teclado" className="form-label">Teclado</label>
+                  <div className={`col-md-6 columna columna-derecha ${columnaDestacada === 'derecha' ? 'destacada' : ''}`}
+                      onMouseEnter={() => setColumnaDestacada('derecha')}
+                      onMouseLeave={() => setColumnaDestacada(null)}
+                    >
+                    <div className="mbs-3">
+                      <label htmlFor="teclado" className="form-labels">Teclado *</label>
                       <select
                         name="teclado"
                         onChange={handleChange}
                         id="teclado"
-                        className="form-select"
+                        className="form-controls"
                         value={pc.teclado || ""}
                       >
                         <option value="" disabled>Seleccione una opción</option>
@@ -174,13 +180,13 @@ const Form = ({pc, setPc, setListUpdated}) => {
                         <option value="NO">NO</option>
                       </select>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="mouse" className="form-label">Mouse</label>
+                    <div className="mbs-3">
+                      <label htmlFor="mouse" className="form-labels">Mouse *</label>
                       <select
                         name="mouse"
                         onChange={handleChange}
                         id="mouse"
-                        className="form-select"
+                        className="form-controls"
                         value={pc.mouse || ""}
                       >
                         <option value="" disabled>Seleccione una opción</option>
@@ -188,13 +194,13 @@ const Form = ({pc, setPc, setListUpdated}) => {
                         <option value="NO">NO</option>
                       </select>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="estado" className="form-label">Estado</label>
+                    <div className="mbs-3">
+                      <label htmlFor="estado" className="form-labels">Estado *</label>
                       <select
                         name="id_estado"
                         onChange={handleChange}
                         id="estado"
-                        className="form-select"
+                        className="form-controls"
                         value={pc.id_estado || ""}
                       >
                         <option value="" disabled>Seleccione una opción</option>
@@ -202,13 +208,13 @@ const Form = ({pc, setPc, setListUpdated}) => {
                         <option value="2">Fuera de servicio</option>
                       </select>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="mesa" className="form-label">Mesa</label>
+                    <div className="mbs-3">
+                      <label htmlFor="mesa" className="form-labels">Mesa *</label>
                       <select
                         name="id_tabla"
                         onChange={handleChange}
                         id="mesa"
-                        className="form-select"
+                        className="form-controls"
                         value={pc.id_tabla || ""}
                       >
                         <option value="" disabled>Seleccione una opción</option>
@@ -219,12 +225,16 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       </select>
                     </div>
                   </div>
-                  <div className="col-md-12">
+                  <div className={`col-md-12 columna columna-centro ${columnaDestacada === 'centro' ? 'destacada' : ''}`}
+                      onMouseEnter={() => setColumnaDestacada('centro')}
+                      onMouseLeave={() => setColumnaDestacada(null)}
+                    >
                     <button type="submit" className="btn btn-primary">{editMode ? "Actualizar" : "Agregar"}</button>
-                    <button type="button" onClick={() => estadoCancelado()} className="btn btn-danger ms-2">Cancelar</button>
+                    <button type="button" onClick={() => estadoCancelado()} className="btn btn-danger">Cancelar</button>
 
                   </div>
                 </form>
+                </div>
               </div>
             );
 }
