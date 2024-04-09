@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 const Form = ({pc, setPc, setListUpdated}) => {
        const [editMode, setEditMode] = useState(false);
+       const [columnaDestacada, setColumnaDestacada] = useState(null);
        const {id} = useParams();
        const home = useNavigate();
     
@@ -41,7 +42,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
               })
        }
        //Agregar un registro
-       const handleSubmit = (e)=> {
+       const handleSubmit = (e) => {
        let{nombre, teclado, observacion, modelo, no_serie, mouse, id_estado, id_tabla} = pc
               e.preventDefault();
               id_estado = parseInt();
@@ -49,8 +50,16 @@ const Form = ({pc, setPc, setListUpdated}) => {
               //Validacion de datos del formulario
               if (nombre === '' || teclado === '' || observacion === '' || modelo === '' 
               || no_serie === '' || mouse === '' || id_estado <= 0 || id_tabla <= 0) {
-                     alert("Todos los campos son obligatorios")
-                     return
+              const mensajeError = document.getElementById('mensajeError');
+              if (mensajeError) {
+                  mensajeError.style.display='block';
+
+                  // Ocultar el mensaje después de 2 segundos
+                  setTimeout(() => {
+                    mensajeError.style.display = 'none';
+                  }, 2000);
+                }
+              return
               }
 
               //Hacer la consulta
@@ -66,7 +75,6 @@ const Form = ({pc, setPc, setListUpdated}) => {
                   setPcs();
                   home('/');
                   console.log(res);
-                  
                 }else {
                   alert("Ocurrió un error al insertar los datos");
                 }
@@ -79,7 +87,25 @@ const Form = ({pc, setPc, setListUpdated}) => {
        }
        //Actualizar un registro
       const handleUpdate = (e,id) => {
-        e.preventDefault();   
+        e.preventDefault();
+        let{nombre, teclado, observacion, modelo, no_serie, mouse, id_estado, id_tabla} = pc
+              e.preventDefault();
+              id_estado = parseInt();
+              id_tabla = parseInt();
+              //Validacion de datos del formulario
+              if (nombre === '' || teclado === '' || observacion === '' || modelo === '' 
+              || no_serie === '' || mouse === '' || id_estado <= 0 || id_tabla <= 0) {
+              const mensajeError = document.getElementById('mensajeError');
+              if (mensajeError) {
+                  mensajeError.style.display='block';
+
+                  // Ocultar el mensaje después de 2 segundos
+                  setTimeout(() => {
+                    mensajeError.style.display = 'none';
+                  }, 2000);
+                }
+              return
+              }
         const requestInit = {
           method: 'PUT',
           headers: {'Content-Type':'application/json'},
@@ -100,25 +126,24 @@ const Form = ({pc, setPc, setListUpdated}) => {
         setListUpdated(true)
       }
       //Riniciar los valores al cancelar
-      const estadoCancelado = ()=>{
+      const estadoCancelado = () => {
         setPcs();
         home('/');
       }
-
-      //Color de la columna
-      const [columnaDestacada, setColumnaDestacada] = useState(null);
-
-       return (
+             return (
               <div>
                 <p className="form-txt"> {editMode ? "Editar Computadora" : "Agregar Computadora"}</p>
+                <div id ="mensajeError" className="alert alert-warning campo-obligatorio" role="alert">
+                {editMode ? "Todos los campos son obligatorios para poder actualizar" : "Todos los campos son obligatorios para poder agregar"}
+                </div>
                 <div className="form-container">
                 <form onSubmit={(e)=> editMode ? handleUpdate(e,pc.id) : handleSubmit(e)} className="row">
-                <div className={`col-md-6 columna columna-izquierda ${columnaDestacada === 'izquierda' ? 'destacada' : ''}`}
+                <div className={`columna columna-izquierda ${columnaDestacada === 'izquierda' ? 'destacada' : ''}`}
                     onMouseEnter={() => setColumnaDestacada('izquierda')}
                     onMouseLeave={() => setColumnaDestacada(null)}
                     >
                     <div className="mbs-3">
-                      <label htmlFor="nombre" className="form-labels">Nombre *</label>
+                      <label htmlFor="nombre" className="form-labels">Nombre <a id="campoObligatorio">*</a></label>
                       <input
                         name="nombre"
                         onChange={handleChange}
@@ -129,7 +154,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       />
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="modelo" className="form-labels">Modelo *</label>
+                      <label htmlFor="modelo" className="form-labels">Modelo <a id="campoObligatorio">*</a></label>
                       <input
                         name="modelo"
                         onChange={handleChange}
@@ -140,7 +165,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       />
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="no_serie" className="form-labels">No. Serie *</label>
+                      <label htmlFor="no_serie" className="form-labels">No. Serie <a id="campoObligatorio">*</a></label>
                       <input
                         name="no_serie"
                         onChange={handleChange}
@@ -151,7 +176,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       />
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="observacion" className="form-labels">Observacion *</label>
+                      <label htmlFor="observacion" className="form-labels">Observacion <a id="campoObligatorio">*</a></label>
                       <input
                         name="observacion"
                         onChange={handleChange}
@@ -162,12 +187,12 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       />
                     </div>
                   </div>
-                  <div className={`col-md-6 columna columna-derecha ${columnaDestacada === 'derecha' ? 'destacada' : ''}`}
+                  <div className={`columna columna-derecha ${columnaDestacada === 'derecha' ? 'destacada' : ''}`}
                       onMouseEnter={() => setColumnaDestacada('derecha')}
                       onMouseLeave={() => setColumnaDestacada(null)}
                     >
                     <div className="mbs-3">
-                      <label htmlFor="teclado" className="form-labels">Teclado *</label>
+                      <label htmlFor="teclado" className="form-labels">Teclado <a id="campoObligatorio">*</a></label>
                       <select
                         name="teclado"
                         onChange={handleChange}
@@ -181,7 +206,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       </select>
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="mouse" className="form-labels">Mouse *</label>
+                      <label htmlFor="mouse" className="form-labels">Mouse <a id="campoObligatorio">*</a></label>
                       <select
                         name="mouse"
                         onChange={handleChange}
@@ -195,7 +220,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       </select>
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="estado" className="form-labels">Estado *</label>
+                      <label htmlFor="estado" className="form-labels">Estado <a id="campoObligatorio">*</a></label>
                       <select
                         name="id_estado"
                         onChange={handleChange}
@@ -209,7 +234,7 @@ const Form = ({pc, setPc, setListUpdated}) => {
                       </select>
                     </div>
                     <div className="mbs-3">
-                      <label htmlFor="mesa" className="form-labels">Mesa *</label>
+                      <label htmlFor="mesa" className="form-labels">Mesa <a id="campoObligatorio">*</a></label>
                       <select
                         name="id_tabla"
                         onChange={handleChange}

@@ -58,9 +58,8 @@
   margin-left: 15%;
   margin-bottom: 50px;
   width: 70%;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: rgb(43, 42, 42);
-
 }
 .form-controls{
   border-radius: 6px;
@@ -82,25 +81,38 @@
 .columna {
   padding: 20px;
   transition: background-color 0.3s ease-in-out;
-  border-radius: 10px;
-  margin-left: 15px;
+  border-radius: 20px;
 }
 .columna-izquierda{
-  width: 46%;
+  flex: 1;
+  margin-left: 10px;
   
 }
 .columna-derecha{
-  width: 49.5%;
+  flex: 1;
+  margin-right: 10px;
 }
 .columna-centro{
-  width: 97%;
+  width: 98%;
+  margin-left: 10px;
   display: flex;
   justify-content: center;
-  
+
 }
 .columna-centro button + button{
   margin-left: 50px;
 }
 .columna:hover {
   background-color: rgba(0, 0, 0, 1);
+}
+
+.campo-obligatorio{
+  font-size: 20px;
+  
+}
+#mensajeError{
+  display: none;
+}
+#campoObligatorio{
+  color: red;
 }
